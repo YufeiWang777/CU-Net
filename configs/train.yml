@@ -1,0 +1,131 @@
+# ------------------------------------------------------------
+# configure file for dataset
+# @author:                  jokerWRN
+# @data:                    Mon 2021.1.22 19:06
+# @latest modified data:    Mon 2021.1.22 19:06
+# ------------------------------------------------------------
+# ------------------------------------------------------------
+
+# Hardware
+seed: 7240
+gpus: (7, )
+port: 29500
+num_threads: 5
+no_multiprocessing: False
+syncbn: True
+cudnn_deterministic: False
+cudnn_benchmark: True
+
+# Dataset
+data_folder: '/home/temp_user/kitti_depth'
+max_depth: 80.0
+dataset: ['rgb', 'dep', 'gt']
+penetgt_mixed_gt: False
+s2dgt_mixed_gt: False
+
+val: 'select'
+val_h: 352
+val_w: 1216
+not_random_crop: False
+val_not_random_crop: False
+random_crop_height: 256
+random_crop_width: 1216
+jitter: 0.1
+
+val_epoch: 5
+val_iters: 50000
+
+# Network
+model: 'model'
+summary_name: 'summary'
+init: 'Gaussian_random'
+convolutional_layer_encoding: 'xyz'
+round1: 1
+weight_ben1: 0.3
+weight_jin1: 0.3
+weight_an1: 0.5
+round2: 3
+weight_ben2: 0.3
+weight_jin2: 0.3
+weight_an2: 0.5
+weight_ben3: 0.3
+weight_jin3: 0.3
+weight_an3: 0.5
+output: 'an_depth'
+ben_supervised: 'gt'
+jin_supervised: 'gt'
+an_supervised: 'gt'
+
+# Resume
+resume: False
+pretrain: ''
+wandb_id_resume: ''
+
+# Test
+test: False
+test_option: 'val'
+test_name: 'ben_depth'
+tta: False
+test_not_random_crop: False
+wandb_id_test: ''
+test_dir: ''
+test_model: ''
+save_test_image: False
+
+# Training
+log_itr: 1
+start_epoch: 0
+epochs: 30
+batch_size: 1
+
+accumulation_gradient: False
+accumulation_steps: 0
+
+# Loss
+loss_fixed: False
+partial_supervised_index: 0.0
+loss_ben: '1.0*L2'
+loss_jin: '1.0*L2'
+loss_an: '1.0*L2'
+
+# Optimizer
+lr: 1e-3
+# * ADAM
+optimizer: 'ADAM'   # choices=('SGD', 'ADAM', 'RMSprop')
+momentum: 0.9
+betas: (0.9, 0.999)
+epsilon: 1e-8
+weight_decay: 1e-6
+
+# Scheduler
+scheduler: 'lambdaLR'
+# * stepLR
+decay: (5, 10, 15, 25, 30)
+gamma: (1.0, 0.5, 0.1, 0.05, 0.01)
+
+# Summary
+num_summary: 6
+
+# Logs
+vis_step: 1000
+record_by_wandb_online: False
+test_record_by_wandb_online: False
+
+ben_online_loss: True
+ben_online_metric: True
+ben_online_rmse_only: False
+ben_online_img: False
+summary_jin: True
+jin_online_loss: True
+jin_online_metric: True
+jin_online_rmse_only: False
+jin_online_img: False
+summary_an: True
+an_online_loss: True
+an_online_metric: True
+an_online_rmse_only: False
+an_online_img: False
+
+save_result_only: False
+
+
